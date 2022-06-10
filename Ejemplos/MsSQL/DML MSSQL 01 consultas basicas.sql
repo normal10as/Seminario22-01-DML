@@ -16,8 +16,11 @@ SELECT @@version
 select valor1 = 5000 * .2, valor2 = 5000 * 20 / 100
 
 -- calculo sobre columna de una tabla
-SELECT nivel_cargo, nivel_cargo * 2
+SELECT nivel_cargo, doble_cargo = nivel_cargo * 2
+	, apellido as last_name, nombre name
 FROM empleados
+select *
+from empleados
 
 -- todas las filas y todas las columnas de autores
 select *
@@ -32,6 +35,13 @@ Por cada venta mostrar almacen, orden,
 fecha, id de titulo, titulo, 
 cantidad, precio y total
 */
+select *
+from ventas
+select *
+from titulos
+select *
+from ventas, titulos
+
 SELECT almacen_id, numero_orden, fecha_orden,
 	ventas.titulo_id, titulo, cantidad, precio,
     total = cantidad * precio
@@ -45,3 +55,10 @@ SELECT almacen_nombre, numero_orden, fecha_orden,
 FROM ventas, titulos, almacenes
 WHERE ventas.titulo_id = titulos.titulo_id
 	and ventas.almacen_id = almacenes.almacen_id
+
+SELECT almacen_nombre, numero_orden, fecha_orden,
+	v.titulo_id, titulo, cantidad, precio,
+    total = cantidad * precio
+FROM ventas as v, titulos as t, almacenes as a
+WHERE v.titulo_id = t.titulo_id
+	and v.almacen_id = a.almacen_id

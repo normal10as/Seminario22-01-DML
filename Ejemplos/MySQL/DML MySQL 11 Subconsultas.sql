@@ -26,7 +26,7 @@ GROUP BY e.cargo_id, cargo_descripcion
 
 
 SELECT t.cargo_descripcion, t.nivel_maximo, t.nivel_minimo,
-	ISNULL(te.cantidad,0) AS cantidad
+	ifnull(te.cantidad,0) AS cantidad
 FROM cargos AS t
 LEFT JOIN (
 	SELECT cargo_id, COUNT(*) AS cantidad

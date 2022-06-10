@@ -1,4 +1,10 @@
 USE editorial;
+
+select year(fecha_orden)
+from ventas
+select*
+from titulos
+
 SELECT *
 FROM plan_regalias;
 
@@ -22,12 +28,15 @@ from plan_regalias;
 SELECT count(precio)
 FROM titulos;
 
+SELECT COUNT(*)
+FROM titulos
 
 -- informar el porcentaje promedio de planes de regalias
 select avg(regalias)
 from plan_regalias;
 
--- informar cuantos porcentajes diferentes de plan de regalias existen
+-- informar cuantos porcentajes diferentes 
+-- de plan de regalias existen
 select count(distinct regalias)
 from plan_regalias;
 

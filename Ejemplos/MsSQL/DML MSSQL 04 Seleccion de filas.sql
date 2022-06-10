@@ -22,14 +22,19 @@ SELECT *
 FROM empleados
 WHERE MONTH( fecha_contratacion) = 8
 
--- mostrar los empleados contratados en el 2009 o el 2013
+-- mostrar los empleados contratados en el 2009 y el 2013
 SELECT *
 FROM empleados
 WHERE YEAR( fecha_contratacion) = 2009
 	or YEAR( fecha_contratacion) = 2013
 
--- mostrar los empleados contratados en los últimos 10 años
+	-- mostrar los empleados contratados entre en el 2009 y el 2013
 SELECT *
+FROM empleados
+WHERE YEAR( fecha_contratacion) BETWEEN 2009 AND2013
+
+-- mostrar los empleados contratados en los últimos 10 años
+SELECT *, YEAR(GETDATE()) - 10
 FROM empleados
 WHERE YEAR( fecha_contratacion) > YEAR(GETDATE()) - 10
 
