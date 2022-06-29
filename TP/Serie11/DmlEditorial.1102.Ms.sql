@@ -4,7 +4,7 @@ Mostrar nombre de almacén. */
 use editorial
 go
 
-select *
+select almacen_nombre
 from almacenes as a
 inner join (
 	select almacen_id, total=COUNT( distinct titulo_id) 
@@ -17,3 +17,4 @@ where v.total =
 	--select count(*)
 	from titulos
 )
+
