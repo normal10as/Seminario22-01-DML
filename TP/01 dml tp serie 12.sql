@@ -80,7 +80,8 @@ and titulo_id =
 
 select * from ventas
 
-insert into ventas(almacen_id, numero_orden, fecha_orden, cantidad, forma_pago, titulo_id)
+insert into ventas(almacen_id, numero_orden, fecha_orden, cantidad, 
+	forma_pago, titulo_id)
 select 7896, 'JJ3598', '20150430', 30, '30 días', titulo_id
 from titulos
 where titulo = 'Usar el cerebro'
@@ -93,12 +94,14 @@ insert into plan_regalias (titulo_id, regalias, rango_minimo, rango_maximo)
 select titulo_id, 10, 0, 5000 
 from titulos
 where titulo_id not in (
-	select distinct titulo_id from plan_regalias)
+	select distinct titulo_id from plan_regalias
+	)
 
 /* 12.7. Agregar un plan de regalías a cada título. El rango mínimo será el rango
 máximo actual más uno, el rango máximo será el doble del rango máximo actual y la
 regalía será el máximo actual más dos puntos. */
 select * from plan_regalias
+order by titulo_id, rango_minimo
 
 insert into plan_regalias (titulo_id, regalias, rango_minimo, rango_maximo)
 select titulo_id, max(regalias) + 2, max(rango_maximo)+1, max(rango_maximo)*2
@@ -124,15 +127,23 @@ where e.nivel_cargo = nivel_minimo
 
 /* 12.10. Cambiar el cargo de los “editores” a “director editorial” a aquellos editores que
 están a por lo menos 15 puntos del nivel máximo */
+select *
+from cargos
+
 update e
-set cargo_id = (select cargo_id from cargos where cargo_descripcion = 'director editorial'),
-nivel_cargo = (select nivel_minimo from cargos where cargo_descripcion = 'director editorial') 
+set cargo_id = (select cargo_id 
+					from cargos 
+					where cargo_descripcion = 'director editorial'),
+nivel_cargo = (select nivel_minimo 
+					from cargos 
+					where cargo_descripcion = 'director editorial') 
 --select *
 from empleados as e
 inner join cargos as c on c.cargo_id = e.cargo_id
-where nivel_cargo >= nivel_maximo - 15
+where cargo_descripcion = 'Editor'
+and nivel_cargo >= nivel_maximo - 15
 --where nivel_maximo - nivel_cargo <= 15
-and cargo_descripcion = 'Editor'
+
 
 /* 12.11. Borrar los autores que no fueron contratados */
 delete
